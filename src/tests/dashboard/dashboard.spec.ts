@@ -42,4 +42,25 @@ test.describe("TC-DASH — Dashboard", () => {
             await dashboardPage.clickViewAllEntries();
         });
 
+    test("TEM-19 | Recent entry click opens modal",
+        {
+            annotation: {
+                type: "test case",
+                description: `${process.env.QAS_URL}/project/${process.env.QAS_PROJECT_CODE}/tcase/19`,
+            },
+        },
+        async ({ loginPage, dashboardPage, editTimeEntryModal }) => {
+            await allure.description("Verify that clicking a Recent Team Entry row for the logged-in user opens the Edit Time Entry modal with pre-populated entry data.");
+            await allure.severity("normal");
+            await allure.tag("dashboard");
+            await allure.tag("modal");
+            await allure.owner("QA Team");
+
+            await loginPage.goTo();
+            await loginPage.login(users.valid.username, users.valid.password);
+            await dashboardPage.clickEntryByMember(users.valid.displayName);
+            await editTimeEntryModal.verifyModalOpen();
+            await editTimeEntryModal.verifyFieldsPopulated();
+        });
+
 });

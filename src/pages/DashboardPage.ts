@@ -14,6 +14,18 @@ const statCards: StatCard[] = [
 export class DashboardPage extends BasePage {
   private readonly dashboardContainer = this.page.getByTestId("dashboard-page");
   private readonly viewAllEntriesLink = this.page.getByTestId("btn-view-all-entries");
+  private readonly recentEntriesTable = this.page.locator("tbody");
+
+  async clickEntryByMember(memberName: string) {
+    await allure.step(`Click Recent Team Entry row for member "${memberName}"`, async () => {
+      const row = this.recentEntriesTable
+        .locator("tr")
+        .filter({ hasText: memberName })
+        .first();
+      await expect(row).toBeVisible();
+      await row.click();
+    });
+  }
 
   async clickViewAllEntries() {
     await allure.step("Click 'View all entries' link", async () => {
