@@ -65,6 +65,14 @@ export class DashboardPage extends BasePage {
     });
   }
 
+  async verifyEmptyState() {
+    await allure.step("Verify empty state message is shown", async () => {
+      await expect(
+        this.page.getByText("No entries yet — log your first hour", { exact: true })
+      ).toBeVisible();
+    });
+  }
+
   async clickEntryByMember(memberName: string) {
     await allure.step(`Click Recent Team Entry row for member "${memberName}"`, async () => {
       const row = this.recentEntriesTable

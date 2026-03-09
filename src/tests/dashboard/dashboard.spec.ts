@@ -143,4 +143,23 @@ test.describe("TC-DASH — Dashboard", () => {
             await dashboardPage.clickQuickActionApprovals();
         });
 
+    test("TEM-24 | Empty state — no entries shown for user with no data",
+        {
+            annotation: {
+                type: "test case",
+                description: `${process.env.QAS_URL}/project/${process.env.QAS_PROJECT_CODE}/tcase/24`,
+            },
+        },
+        async ({ loginPage, dashboardPage }) => {
+            await allure.description("Verify that a user with no logged entries sees the empty state message on the Dashboard instead of entries.");
+            await allure.severity("normal");
+            await allure.tag("dashboard");
+            await allure.tag("empty-state");
+            await allure.owner("QA Team");
+
+            await loginPage.goTo();
+            await loginPage.login(users.nonAdmin.username, users.nonAdmin.password);
+            await dashboardPage.verifyEmptyState();
+        });
+
 });
