@@ -19,6 +19,38 @@ export class DashboardPage extends BasePage {
   private readonly quickActionProjects   = this.page.getByTestId("btn-quick-action-projects");
   private readonly quickActionReports    = this.page.getByTestId("btn-quick-action-reports");
   private readonly quickActionApprovals  = this.page.getByTestId("btn-quick-action-approvals");
+  private readonly timerWidget           = this.page.getByTestId("timer-widget");
+  private readonly timerProjectSelect    = this.page.getByTestId("select-timer-project");
+  private readonly timerDescriptionInput = this.page.getByTestId("input-timer-description");
+  private readonly timerStartButton      = this.page.getByTestId("btn-timer-start");
+  private readonly timerStopButton       = this.page.getByTestId("btn-timer-stop");
+
+  async startTimer(description: string) {
+    await allure.step("Fill timer description", async () => {
+      await this.timerDescriptionInput.fill(description);
+    });
+    await allure.step("Click Start timer button", async () => {
+      await this.timerStartButton.click();
+    });
+  }
+
+  async verifyTimerRunning() {
+    await allure.step("Verify Stop button is visible (timer running)", async () => {
+      await expect(this.timerStopButton).toBeVisible();
+    });
+    await allure.step("Verify timer is counting (displays seconds)", async () => {
+      await expect(this.timerWidget).toContainText(/:/);
+    });
+  }
+
+  async stopTimer() {
+    await allure.step("Wait 3 seconds for timer to run", async () => {
+      await this.page.waitForTimeout(3000);
+    });
+    await allure.step("Click Stop timer button", async () => {
+      await this.timerStopButton.click();
+    });
+  }
 
   async verifyQuickActionsVisible() {
     await allure.step("Verify Quick Actions section is visible", async () => {

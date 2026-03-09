@@ -162,11 +162,11 @@ test.describe("TC-DASH — Dashboard", () => {
             await dashboardPage.verifyEmptyState();
         });
 
-    test("TEM-25 | Empty state CTA navigates to Timesheet",
+    test("TEM-171 | Empty state CTA navigates to Timesheet",
         {
             annotation: {
                 type: "test case",
-                description: `${process.env.QAS_URL}/project/${process.env.QAS_PROJECT_CODE}/tcase/25`,
+                description: `${process.env.QAS_URL}/project/${process.env.QAS_PROJECT_CODE}/tcase/171`,
             },
         },
         async ({ loginPage, dashboardPage }) => {
@@ -179,6 +179,34 @@ test.describe("TC-DASH — Dashboard", () => {
             await loginPage.goTo();
             await loginPage.login(users.nonAdmin.username, users.nonAdmin.password);
             await dashboardPage.clickLogYourFirstHour();
+        });
+
+    test("TEM-26 | Timer starts and stops",
+        {
+            annotation: [
+                {
+                    type: "test case",
+                    description: `${process.env.QAS_URL}/project/${process.env.QAS_PROJECT_CODE}/tcase/26`,
+                },
+                {
+                    type: "linked test case",
+                    description: `${process.env.QAS_URL}/project/${process.env.QAS_PROJECT_CODE}/tcase/27`,
+                },
+            ],
+        },
+        async ({ loginPage, dashboardPage, saveTimeEntryModal }) => {
+            await allure.description("Verify that starting the timer shows the stop button and a running counter, and stopping it opens the Save Time Entry modal.");
+            await allure.severity("critical");
+            await allure.tag("dashboard");
+            await allure.tag("timer");
+            await allure.owner("QA Team");
+
+            await loginPage.goTo();
+            await loginPage.login(users.valid.username, users.valid.password);
+            await dashboardPage.startTimer("Timer test entry");
+            await dashboardPage.verifyTimerRunning();
+            await dashboardPage.stopTimer();
+            await saveTimeEntryModal.verifyModalOpen();
         });
 
 });
