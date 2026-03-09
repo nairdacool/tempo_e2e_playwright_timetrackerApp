@@ -47,6 +47,15 @@ export class DashboardPage extends BasePage {
     });
   }
 
+  async clickQuickActionReports() {
+    await allure.step("Click Quick Action — Reports button", async () => {
+      await this.quickActionReports.click();
+    });
+    await allure.step("Verify URL navigates to /reports", async () => {
+      await expect(this.page).toHaveURL(/reports/);
+    });
+  }
+
   async clickEntryByMember(memberName: string) {
     await allure.step(`Click Recent Team Entry row for member "${memberName}"`, async () => {
       const row = this.recentEntriesTable
