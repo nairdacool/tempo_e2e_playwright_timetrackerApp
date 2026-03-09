@@ -63,7 +63,7 @@ test.describe("TC-DASH — Dashboard", () => {
             await editTimeEntryModal.verifyFieldsPopulated();
         });
 
-    test("TEM-20 | Quick action — Timesheet navigates to /timesheet",
+    test("TEM-20 | Quick action — Log Time navigates to /timesheet",
         {
             annotation: {
                 type: "test case",
@@ -71,7 +71,7 @@ test.describe("TC-DASH — Dashboard", () => {
             },
         },
         async ({ loginPage, dashboardPage }) => {
-            await allure.description("Verify that all Quick Action buttons are visible and clicking Timesheet navigates to /timesheet.");
+            await allure.description("Verify that all Quick Action buttons are visible and clicking Log Time navigates to /timesheet.");
             await allure.severity("normal");
             await allure.tag("dashboard");
             await allure.tag("quick-actions");
@@ -83,7 +83,7 @@ test.describe("TC-DASH — Dashboard", () => {
             await dashboardPage.clickQuickActionTimesheet();
         });
 
-    test("TEM-21 | Quick action — Projects navigates to /projects",
+    test("TEM-21 | Quick action — View Projects navigates to /projects",
         {
             annotation: {
                 type: "test case",
@@ -91,7 +91,7 @@ test.describe("TC-DASH — Dashboard", () => {
             },
         },
         async ({ loginPage, dashboardPage }) => {
-            await allure.description("Verify that clicking the Projects Quick Action navigates to /projects.");
+            await allure.description("Verify that clicking the View Projects Quick Action navigates to /projects.");
             await allure.severity("normal");
             await allure.tag("dashboard");
             await allure.tag("quick-actions");
@@ -121,6 +121,26 @@ test.describe("TC-DASH — Dashboard", () => {
             await loginPage.login(users.valid.username, users.valid.password);
             await dashboardPage.verifyQuickActionsVisible();
             await dashboardPage.clickQuickActionReports();
+        });
+
+    test("TEM-23 | Quick action — Approvals navigates to /approvals",
+        {
+            annotation: {
+                type: "test case",
+                description: `${process.env.QAS_URL}/project/${process.env.QAS_PROJECT_CODE}/tcase/23`,
+            },
+        },
+        async ({ loginPage, dashboardPage }) => {
+            await allure.description("Verify that clicking the Approvals Quick Action navigates to /approvals.");
+            await allure.severity("normal");
+            await allure.tag("dashboard");
+            await allure.tag("quick-actions");
+            await allure.owner("QA Team");
+
+            await loginPage.goTo();
+            await loginPage.login(users.valid.username, users.valid.password);
+            await dashboardPage.verifyQuickActionsVisible();
+            await dashboardPage.clickQuickActionApprovals();
         });
 
 });
