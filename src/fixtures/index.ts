@@ -3,12 +3,14 @@ import { LoginPage } from '@pages/LoginPage';
 import { SidebarPage } from '@pages/SidebarPage';
 import { DashboardPage } from '@pages/DashboardPage';
 import { EditTimeEntryModal } from '@pages/EditTimeEntryModal';
+import { TimesheetPage } from '@pages/TimesheetPage';
 
 type PageFixtures = {
   loginPage: LoginPage;
   sidebarPage: SidebarPage;
   dashboardPage: DashboardPage;
   editTimeEntryModal: EditTimeEntryModal;
+  timesheetPage: TimesheetPage;
 };
 
 export const test = base.extend<PageFixtures>({
@@ -23,6 +25,9 @@ export const test = base.extend<PageFixtures>({
   },
   editTimeEntryModal: async ({ page }, use) => {
     await use(new EditTimeEntryModal(page));
+  },
+  timesheetPage: async ({ page }, use) => {
+    await use(new TimesheetPage(page));
   },
 });
 
