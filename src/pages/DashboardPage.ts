@@ -73,6 +73,15 @@ export class DashboardPage extends BasePage {
     });
   }
 
+  async clickLogYourFirstHour() {
+    await allure.step("Click 'log your first hour' CTA link", async () => {
+      await this.page.getByText("log your first hour", { exact: true }).click();
+    });
+    await allure.step("Verify URL navigates to /timesheet", async () => {
+      await expect(this.page).toHaveURL(/timesheet/);
+    });
+  }
+
   async clickEntryByMember(memberName: string) {
     await allure.step(`Click Recent Team Entry row for member "${memberName}"`, async () => {
       const row = this.recentEntriesTable

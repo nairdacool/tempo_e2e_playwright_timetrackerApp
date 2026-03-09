@@ -162,4 +162,23 @@ test.describe("TC-DASH — Dashboard", () => {
             await dashboardPage.verifyEmptyState();
         });
 
+    test("TEM-25 | Empty state CTA navigates to Timesheet",
+        {
+            annotation: {
+                type: "test case",
+                description: `${process.env.QAS_URL}/project/${process.env.QAS_PROJECT_CODE}/tcase/25`,
+            },
+        },
+        async ({ loginPage, dashboardPage }) => {
+            await allure.description("Verify that clicking the 'log your first hour' link in the empty state navigates to /timesheet.");
+            await allure.severity("normal");
+            await allure.tag("dashboard");
+            await allure.tag("empty-state");
+            await allure.owner("QA Team");
+
+            await loginPage.goTo();
+            await loginPage.login(users.nonAdmin.username, users.nonAdmin.password);
+            await dashboardPage.clickLogYourFirstHour();
+        });
+
 });
