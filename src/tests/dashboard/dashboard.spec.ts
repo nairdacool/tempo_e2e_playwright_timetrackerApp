@@ -63,4 +63,24 @@ test.describe("TC-DASH — Dashboard", () => {
             await editTimeEntryModal.verifyFieldsPopulated();
         });
 
+    test("TEM-20 | Quick action — Timesheet navigates to /timesheet",
+        {
+            annotation: {
+                type: "test case",
+                description: `${process.env.QAS_URL}/project/${process.env.QAS_PROJECT_CODE}/tcase/20`,
+            },
+        },
+        async ({ loginPage, dashboardPage }) => {
+            await allure.description("Verify that all Quick Action buttons are visible and clicking Timesheet navigates to /timesheet.");
+            await allure.severity("normal");
+            await allure.tag("dashboard");
+            await allure.tag("quick-actions");
+            await allure.owner("QA Team");
+
+            await loginPage.goTo();
+            await loginPage.login(users.valid.username, users.valid.password);
+            await dashboardPage.verifyQuickActionsVisible();
+            await dashboardPage.clickQuickActionTimesheet();
+        });
+
 });

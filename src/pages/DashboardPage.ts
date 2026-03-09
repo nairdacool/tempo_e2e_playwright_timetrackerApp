@@ -12,9 +12,31 @@ const statCards: StatCard[] = [
 ];
 
 export class DashboardPage extends BasePage {
-  private readonly dashboardContainer = this.page.getByTestId("dashboard-page");
-  private readonly viewAllEntriesLink = this.page.getByTestId("btn-view-all-entries");
-  private readonly recentEntriesTable = this.page.locator("tbody");
+  private readonly dashboardContainer    = this.page.getByTestId("dashboard-page");
+  private readonly viewAllEntriesLink    = this.page.getByTestId("btn-view-all-entries");
+  private readonly recentEntriesTable    = this.page.locator("tbody");
+  private readonly quickActionTimesheet  = this.page.getByTestId("btn-quick-action-timesheet");
+  private readonly quickActionProjects   = this.page.getByTestId("btn-quick-action-projects");
+  private readonly quickActionReports    = this.page.getByTestId("btn-quick-action-reports");
+  private readonly quickActionApprovals  = this.page.getByTestId("btn-quick-action-approvals");
+
+  async verifyQuickActionsVisible() {
+    await allure.step("Verify Quick Actions section is visible", async () => {
+      await expect(this.quickActionTimesheet).toBeVisible();
+      await expect(this.quickActionProjects).toBeVisible();
+      await expect(this.quickActionReports).toBeVisible();
+      await expect(this.quickActionApprovals).toBeVisible();
+    });
+  }
+
+  async clickQuickActionTimesheet() {
+    await allure.step("Click Quick Action — Timesheet button", async () => {
+      await this.quickActionTimesheet.click();
+    });
+    await allure.step("Verify URL navigates to /timesheet", async () => {
+      await expect(this.page).toHaveURL(/timesheet/);
+    });
+  }
 
   async clickEntryByMember(memberName: string) {
     await allure.step(`Click Recent Team Entry row for member "${memberName}"`, async () => {
