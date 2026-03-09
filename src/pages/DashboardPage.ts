@@ -13,6 +13,16 @@ const statCards: StatCard[] = [
 
 export class DashboardPage extends BasePage {
   private readonly dashboardContainer = this.page.getByTestId("dashboard-page");
+  private readonly viewAllEntriesLink = this.page.getByTestId("btn-view-all-entries");
+
+  async clickViewAllEntries() {
+    await allure.step("Click 'View all entries' link", async () => {
+      await this.viewAllEntriesLink.click();
+    });
+    await allure.step("Verify URL navigates to Timesheet page", async () => {
+      await expect(this.page).toHaveURL(/timesheet/);
+    });
+  }
 
   async verifyStatCards() {
     for (const { label } of statCards) {

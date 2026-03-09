@@ -23,4 +23,23 @@ test.describe("TC-DASH — Dashboard", () => {
             await dashboardPage.verifyStatCards();
         });
 
+    test("TEM-18 | View all entries link navigates to Timesheet",
+        {
+            annotation: {
+                type: "test case",
+                description: `${process.env.QAS_URL}/project/${process.env.QAS_PROJECT_CODE}/tcase/18`,
+            },
+        },
+        async ({ loginPage, dashboardPage }) => {
+            await allure.description("Verify that clicking the 'View all entries' link on the Dashboard navigates to the Timesheet page.");
+            await allure.severity("normal");
+            await allure.tag("dashboard");
+            await allure.tag("navigation");
+            await allure.owner("QA Team");
+
+            await loginPage.goTo();
+            await loginPage.login(users.valid.username, users.valid.password);
+            await dashboardPage.clickViewAllEntries();
+        });
+
 });
