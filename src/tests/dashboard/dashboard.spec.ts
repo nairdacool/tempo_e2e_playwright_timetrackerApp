@@ -83,4 +83,24 @@ test.describe("TC-DASH — Dashboard", () => {
             await dashboardPage.clickQuickActionTimesheet();
         });
 
+    test("TEM-21 | Quick action — Projects navigates to /projects",
+        {
+            annotation: {
+                type: "test case",
+                description: `${process.env.QAS_URL}/project/${process.env.QAS_PROJECT_CODE}/tcase/21`,
+            },
+        },
+        async ({ loginPage, dashboardPage }) => {
+            await allure.description("Verify that clicking the Projects Quick Action navigates to /projects.");
+            await allure.severity("normal");
+            await allure.tag("dashboard");
+            await allure.tag("quick-actions");
+            await allure.owner("QA Team");
+
+            await loginPage.goTo();
+            await loginPage.login(users.valid.username, users.valid.password);
+            await dashboardPage.verifyQuickActionsVisible();
+            await dashboardPage.clickQuickActionProjects();
+        });
+
 });

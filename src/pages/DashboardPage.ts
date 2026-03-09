@@ -38,6 +38,15 @@ export class DashboardPage extends BasePage {
     });
   }
 
+  async clickQuickActionProjects() {
+    await allure.step("Click Quick Action — Projects button", async () => {
+      await this.quickActionProjects.click();
+    });
+    await allure.step("Verify URL navigates to /projects", async () => {
+      await expect(this.page).toHaveURL(/projects/);
+    });
+  }
+
   async clickEntryByMember(memberName: string) {
     await allure.step(`Click Recent Team Entry row for member "${memberName}"`, async () => {
       const row = this.recentEntriesTable
