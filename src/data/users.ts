@@ -31,4 +31,8 @@ export const users = {
     username: 'deactivatedaccount@tempo.com',
     password: '1421Cool*',
   },
+  nonAdmin: {
+    username: process.env.NON_ADMIN_USERNAME || 'non-admin-username',
+    password: process.env.NON_ADMIN_PASSWORD || 'non-admin-password',
+  },
 };
